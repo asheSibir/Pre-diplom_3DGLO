@@ -54,10 +54,12 @@ const calculator = () => {
         const calcBlock = document.querySelector('.calc-block'),
             totalValue = document.getElementById('total');
         let target, 
-            step = 0;
+            step = 0,
+            qtyNum;
         
         const showRes = () => {
             target = totalValue.textContent;
+            qtyNum = target.toString().length;
             totalValue.innerText = 0;
             const increase = () => {
                 totalValue.innerHTML = 0;
@@ -65,7 +67,12 @@ const calculator = () => {
                     if (target < 1000){
                         step += 1; 
                     } else {
-                        step += Math.ceil(target/100);
+                        if (step < target){
+                            step += qtyNum * 10;
+                        } else {
+                            step = target;
+                        }
+                        
                     }
                 } else if (step > target){
                     step -= step;

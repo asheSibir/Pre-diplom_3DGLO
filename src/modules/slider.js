@@ -1,7 +1,6 @@
 const moveSlider =()=>{
-    const portfolio = document.getElementById('portfolio');
-    
-    const slider = document.querySelector('.portfolio-content'), //id="all-progects">
+    const portfolio = document.getElementById('portfolio'),
+        slider = document.querySelector('.portfolio-content'), //id="all-progects">
         slide = slider.querySelectorAll('.portfolio-item');
     //ВОЗВРАЩЕНИЕ УДАЛЕННЫХ ДОТОВ
         const dotsUl = document.createElement('ul');
@@ -43,48 +42,47 @@ const moveSlider =()=>{
     const stopSlide = () => {
         clearInterval(interval);
     };
-    portfolio.addEventListener('mouseenter', (event)=>{
-        slider.addEventListener('click', (event) =>{
-            event.preventDefault();
-            let target = event.target;
     
-            if (target.matches('#arrow-right, #arrow-left, .dot')){
-                prevSlide(slide, currentSlide, 'portfolio-item-active');
-                prevSlide(dots, currentSlide, 'dot-active'); 
-                if (target.matches('#arrow-right')){
-                    currentSlide++;
-                } else if (target.matches('#arrow-left')){
-                    currentSlide--;
-                    } 
-                    else if (target.matches('.dot')){ 
-                            dots.forEach((elem, index) => {
-                                if (elem === target){
-                                    currentSlide = index;
-                                }
-                            });
-                        }
-                if (currentSlide >= slide.length){
-                    currentSlide = 0;
-                }  
-                if (currentSlide < 0){
-                    currentSlide = slide.length - 1;
-                }
-                nextSlide(slide, currentSlide, 'portfolio-item-active');
-                nextSlide(dots, currentSlide, 'dot-active'); 
+    slider.addEventListener('click', (event) =>{
+        event.preventDefault();
+        let target = event.target;
+        if (target.matches('#arrow-right, #arrow-left, .dot')){
+            prevSlide(slide, currentSlide, 'portfolio-item-active');
+            prevSlide(dots, currentSlide, 'dot-active'); 
+            if (target.matches('#arrow-right')){
+                currentSlide++;
+            } else if (target.matches('#arrow-left')){
+                currentSlide--;
+                } 
+                else if (target.matches('.dot')){ 
+                        dots.forEach((elem, index) => {
+                            if (elem === target){
+                                currentSlide = index;
+                            }
+                        });
+                    }
+            if (currentSlide >= slide.length){
+                currentSlide = 0;
+            }  
+            if (currentSlide < 0){
+                currentSlide = slide.length - 1;
             }
-        });
-        slider.addEventListener('mouseover', (event) => {
-            if (event.target.matches('.portfolio-btn') || event.target.matches('.dot')){
-                stopSlide();
-            }
-        });
-        slider.addEventListener('mouseout', (event) => {
-            if (event.target.matches('.portfolio-btn') || event.target.matches('.dot')){
-            startSlide(1500);
-            }
-        });
-        startSlide();       
+            nextSlide(slide, currentSlide, 'portfolio-item-active');
+            nextSlide(dots, currentSlide, 'dot-active'); 
+        }
     });
+    slider.addEventListener('mouseover', (event) => {
+        if (event.target.matches('.portfolio-btn') || event.target.matches('.dot')){
+            stopSlide();
+        }
+    });
+     
+    startSlide(); 
+    portfolio.addEventListener('mouseenter', (event)=>{
+        console.log('mouseenter!');
+        startSlide();
+    });      
+    
     portfolio.addEventListener('mouseleave', (event)=>{
         stopSlide();
         currentSlide = 0;
